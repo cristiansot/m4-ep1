@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import '../assets/css/form.css';
 
-const AppointmentForm = ({ doctors }) => {
-  const [formData, setFormData] = useState(null);
-
+const AppointmentForm = ({ doctors, onAppointmentSubmit }) => {
   const validationSchema = Yup.object({
     patientName: Yup.string()
       .required("El nombre del paciente es obligatorio")
@@ -28,8 +26,7 @@ const AppointmentForm = ({ doctors }) => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
-          setFormData(values);
-          console.log("Datos del formulario:", values);
+          onAppointmentSubmit(values);
           resetForm();
         }}
       >
@@ -83,21 +80,6 @@ const AppointmentForm = ({ doctors }) => {
           </Form>
         )}
       </Formik>
-
-      {formData && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Datos Ingresados</h3>
-          <p>
-            <strong>Nombre:</strong> {formData.patientName}
-          </p>
-          <p>
-            <strong>Doctor:</strong> {formData.doctor}
-          </p>
-          <p>
-            <strong>Fecha:</strong> {formData.appointmentDate}
-          </p>
-        </div>
-      )}
     </div>
   );
 };
@@ -110,6 +92,7 @@ AppointmentForm.propTypes = {
       especialidad: PropTypes.string.isRequired,
     })
   ).isRequired,
+  onAppointmentSubmit: PropTypes.func.isRequired,
 };
 
 export default AppointmentForm;
