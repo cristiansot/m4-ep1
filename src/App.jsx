@@ -1,6 +1,7 @@
 import './App.css';
 import DoctorCard from './components/DoctorCard';
 import ServiceList from './components/ServiceList';
+import AppointmentForm from './components/AppointmentForm';
 import teamData from './assets/equipo.json';
 
 const resolveImagePaths = (data) => {
@@ -11,14 +12,20 @@ const resolveImagePaths = (data) => {
 };
 
 const resolvedTeamData = resolveImagePaths(teamData);
+const medicalServices = ["Urgencias", "Consultas Médicas", "Hospitalización", "Toma de Muestras"];
 
 function App() {
+  const specialties = [...new Set(resolvedTeamData.map((doctor) => doctor.especialidad))];
+
   return (
     <div className="App">
-      <h1>Equipo Médico</h1>
       <div className="service-list-container">
-        <ServiceList />
+        <ServiceList services={medicalServices} />
       </div>
+
+      <AppointmentForm specialties={specialties} doctors={resolvedTeamData} />
+
+      <h2>Equipo Médico</h2>
       <div className="doctor-list">
         {resolvedTeamData.map((doctor, index) => (
           <DoctorCard key={index} doctor={doctor} />

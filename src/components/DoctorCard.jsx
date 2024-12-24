@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const DoctorCard = ({ doctor }) => {
   return (
     <div className="doctor-card">
-      <img src={doctor.imagen} alt={`Foto de ${doctor.nombre}`} className="doctor-image" />
+      <img src={doctor.imagen} alt={`Foto de ${doctor.nombre}`} className="doctor-image" style={{ height: 400, borderRadius: 30 }} />
       <div className="doctor-info">
         <h2 className="doctor-name">{doctor.nombre}</h2>
         <p className="doctor-specialty">Especialidad: {doctor.especialidad}</p>

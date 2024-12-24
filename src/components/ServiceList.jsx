@@ -1,13 +1,11 @@
-import React from "react";
+import PropTypes from "prop-types";
 
-const medicalServices = ["Urgencias", "Consultas Médicas", "Hospitalización", "Toma de Muestras"];
-
-const ServiceList = () => {
+const ServiceList = ({ services }) => {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <h3>Lista de Servicios</h3>
       <select>
-        {medicalServices.map((service, index) => (
+        {services.map((service, index) => (
           <option key={index} value={service}>
             {service}
           </option>
@@ -15,6 +13,10 @@ const ServiceList = () => {
       </select>
     </div>
   );
+};
+
+ServiceList.propTypes = {
+  services: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default ServiceList;
